@@ -1,0 +1,1907 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>MARAD — Meta & Google Ads for Service Businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #14301f;
+    --green-deep: #0c2014;
+    --cream: #f1ecdf;
+    --cream-warm: #ece4d1;
+    --yellow: #f4d03c;
+    --highlight: #a8c5f2;
+    --ink: #0a1a10;
+    --muted: #6b7a6e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: hidden; }
+  html, body { background: var(--cream); color: var(--ink); font-family: 'Manrope', sans-serif; font-weight: 400; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; max-width: 100vw; }
+  body { overflow-x: hidden; }
+
+  /* paper grain on cream sections — extremely subtle for Apple-style refinement */
+  .grain::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .18; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/></svg>");
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 32px; background: rgba(241,236,223,.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(20,48,31,.06);
+  }
+  .logo { font-family: 'Anton', sans-serif; font-size: 20px; letter-spacing: .04em; color: var(--green); }
+  .nav-place {
+    font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+    font-weight: 500; color: var(--green); opacity: .5;
+    border-left: 1px solid rgba(20,48,31,.15);
+    padding-left: 14px;
+  }
+  @media (max-width: 720px) {
+    .nav-place { display: none; }
+  }
+  .nav-links { display: flex; gap: 32px; font-size: 13px; font-weight: 500; letter-spacing: .02em; }
+  .nav-links a { color: var(--green); text-decoration: none; opacity: .65; transition: opacity .2s; }
+  .nav-links a:hover { opacity: 1; }
+  .pill {
+    background: var(--green); color: var(--cream);
+    padding: 12px 22px; border-radius: 999px; font-size: 12px; font-weight: 600;
+    letter-spacing: .06em;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    transition: transform .35s cubic-bezier(.4, 0, .2, 1), background .35s cubic-bezier(.4, 0, .2, 1), box-shadow .35s cubic-bezier(.4, 0, .2, 1);
+    box-shadow: 0 1px 2px rgba(20,48,31,.06);
+  }
+  .pill:hover {
+    transform: translateY(-1px);
+    background: var(--green-deep);
+    box-shadow: 0 6px 16px -6px rgba(20,48,31,.25);
+  }
+  .pill.yellow { background: var(--yellow); color: var(--green); }
+  .pill.yellow:hover { background: var(--yellow); box-shadow: 0 6px 16px -6px rgba(244,208,60,.4); }
+  .pill.cream { background: var(--cream); color: var(--green); }
+  .pill.cream:hover { background: #e9e1cb; box-shadow: 0 6px 18px -8px rgba(241,236,223,.5); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 8px #4ade80; }
+
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative; padding: 100px 28px 80px; overflow: hidden;
+    background: var(--cream);
+  }
+  .hero h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(60px, 11vw, 168px);
+    line-height: .9; letter-spacing: -.03em;
+    color: var(--green); text-transform: uppercase;
+    max-width: 1400px;
+  }
+  .hero h1 em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic; font-weight: 400; color: var(--green);
+    text-transform: lowercase; letter-spacing: -.025em;
+    position: relative; padding: 0 .05em;
+  }
+  .bolt {
+    display: inline-block; vertical-align: -0.06em; margin: 0 -0.04em;
+    width: .9em; height: .9em;
+  }
+  .hero-sub {
+    margin-top: 36px; max-width: 520px;
+    font-size: 16px; line-height: 1.6; color: var(--ink); opacity: .7;
+    font-weight: 400;
+  }
+  .hero-cta { margin-top: 36px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .hero-meta {
+    margin-top: 20px;
+    font-size: 12px; letter-spacing: .04em;
+    color: var(--green); opacity: .55;
+    font-weight: 500;
+  }
+
+  /* floating badges — peek in from right edge like stickers on the page */
+  .badges {
+    position: absolute; right: 0; top: 25%; display: none;
+    width: 180px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  @media (min-width: 980px) { .badges { display: block; } }
+  .badge {
+    position: absolute; padding: 12px 14px; border-radius: 12px;
+    background: var(--green); color: var(--cream);
+    font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+    box-shadow: 0 18px 30px -18px rgba(0,0,0,.4);
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+  .badge.b1 {
+    transform: rotate(-8deg); top: 0; right: -30px;
+  }
+  .badge.b2 {
+    transform: rotate(5deg); top: 90px; right: -15px;
+    background: var(--yellow); color: var(--green);
+  }
+  .badge.b3 {
+    transform: rotate(-4deg); top: 200px; right: -40px;
+    background: var(--cream-warm); color: var(--green); border: 2px solid var(--green);
+  }
+
+  /* ===== MARQUEE ===== */
+  .marquee {
+    background: var(--green); color: var(--cream);
+    padding: 22px 0; overflow: hidden; white-space: nowrap;
+    border-top: 1px solid rgba(241,236,223,.15);
+    border-bottom: 1px solid rgba(241,236,223,.15);
+  }
+  .marquee-track {
+    display: inline-block; animation: scroll 30s linear infinite;
+    font-family: 'Anton', sans-serif; font-size: 38px; letter-spacing: .04em; text-transform: uppercase;
+  }
+  .marquee-track span { margin: 0 28px; }
+  .marquee-track .star { color: var(--yellow); }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ===== MANIFESTO (driven-by-wellness style highlight) ===== */
+  .manifesto {
+    background: var(--cream); position: relative;
+    padding: 120px 28px; text-align: left; max-width: 1100px; margin: 0 auto;
+  }
+  .manifesto p {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(28px, 4.2vw, 54px);
+    line-height: 1.18; color: var(--green);
+    letter-spacing: -.01em;
+  }
+  .manifesto .hl {
+    background: var(--highlight); padding: 0 .12em;
+    box-decoration-break: clone; -webkit-box-decoration-break: clone;
+  }
+  .manifesto .small {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--green); opacity: .55; margin-bottom: 32px;
+  }
+
+  /* ===== SERVICES ===== */
+  .services { background: var(--green); color: var(--cream); padding: 100px 28px; position: relative; }
+  .services .eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; opacity: .6; font-weight: 500; }
+  .services h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(36px, 4.5vw, 64px);
+    line-height: .95; letter-spacing: -.02em; margin-top: 14px; max-width: 900px; text-transform: uppercase;
+  }
+  .services h2 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--cream); text-transform: lowercase; opacity: .85; }
+  .svc-grid {
+    margin-top: 48px; display: grid; gap: 14px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+  .svc-card {
+    background: rgba(255, 255, 255, .55);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, .6);
+    color: var(--green);
+    border-radius: 18px; padding: 28px;
+    display: flex; flex-direction: column; gap: 14px;
+    min-height: 280px; position: relative; overflow: hidden;
+    box-shadow: 0 1px 1px rgba(20,48,31,.03), 0 12px 32px -16px rgba(20,48,31,.1);
+  }
+  .svc-card.dark {
+    background: rgba(12, 32, 20, .85);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    color: var(--cream);
+    border: 1px solid rgba(241,236,223,.18);
+  }
+  .svc-num { font-family: 'Anton', sans-serif; font-size: 11px; opacity: .55; letter-spacing: .18em; font-weight: 400; }
+  .svc-title { font-family: 'Anton', sans-serif; font-size: 28px; line-height: 1; text-transform: uppercase; }
+  .svc-desc { font-size: 13.5px; line-height: 1.6; opacity: .75; font-weight: 400; }
+  .svc-tags { margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px; }
+  .svc-tags span {
+    font-size: 10px; padding: 5px 11px; border-radius: 999px;
+    background: rgba(20,48,31,.08); letter-spacing: .04em; font-weight: 500;
+  }
+  .svc-card.dark .svc-tags span { background: rgba(241,236,223,.08); }
+  .svc-card .arrow {
+    position: absolute; top: 24px; right: 24px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--yellow); color: var(--green);
+    display: grid; place-items: center; font-size: 16px;
+  }
+
+  /* ===== WORK GRID ===== */
+  .work { background: var(--cream); padding: 100px 28px; position: relative; }
+  .work-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 48px; flex-wrap: wrap; }
+  .work-head h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(44px, 7vw, 92px); line-height: .95;
+    color: var(--green); text-transform: uppercase;
+  }
+  .work-head h2 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; text-transform: lowercase; }
+  .work-grid {
+    display: grid; gap: 14px;
+    grid-template-columns: repeat(12, 1fr);
+  }
+  .tile {
+    border-radius: 18px; overflow: hidden; position: relative;
+    aspect-ratio: 4/5; padding: 22px; display: flex; flex-direction: column; justify-content: space-between;
+    color: var(--cream);
+  }
+  .tile.lg { grid-column: span 7; aspect-ratio: 8/6; }
+  .tile.md { grid-column: span 5; }
+  .tile.sm { grid-column: span 4; }
+  .tile.lg2 { grid-column: span 8; aspect-ratio: 16/9; }
+  @media (max-width: 760px) {
+    .tile, .tile.lg, .tile.md, .tile.sm, .tile.lg2 { grid-column: span 12; aspect-ratio: 4/3; }
+  }
+  .tile .tag {
+    align-self: flex-start;
+    font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.18); backdrop-filter: blur(6px);
+  }
+  .tile .label { font-family: 'Anton', sans-serif; font-size: 28px; text-transform: uppercase; line-height: 1; }
+  .tile .label small { display: block; font-family: 'Manrope', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: .1em; opacity: .8; margin-top: 8px; text-transform: uppercase; }
+
+  /* mock product photography "tiles" via rich gradients */
+  .t-skin    { background: radial-gradient(120% 90% at 30% 20%, #f6e5d4 0%, #e3b893 40%, #b07852 80%); color:#3a1f10; }
+  .t-bev     { background: linear-gradient(160deg, #1f4d3a 0%, #0c2014 70%); }
+  .t-fashion { background: linear-gradient(200deg, #2a2a2a 0%, #555 60%, #1a1a1a 100%); }
+  .t-food    { background: radial-gradient(circle at 70% 30%, #f4d03c 0%, #c98c1a 50%, #6e4811 100%); color:#2a1a05; }
+  .t-tech    { background: linear-gradient(140deg, #d8e4ea 0%, #8aa1ad 60%, #3d4f59 100%); color:#1a2a32; }
+  .t-floral  { background: radial-gradient(circle at 30% 70%, #f7c5c5 0%, #c97e7e 50%, #4d2222 100%); }
+
+  .tile.t-skin .tag, .tile.t-food .tag, .tile.t-tech .tag { background: rgba(0,0,0,.12); }
+
+  /* ===== TRACK RECORD ===== */
+  .track {
+    background: var(--cream-warm);
+    padding: 100px 28px;
+  }
+  .track-inner { max-width: 1200px; margin: 0 auto; }
+  .track-header { text-align: center; max-width: 720px; margin: 0 auto; }
+  .track .eyebrow {
+    font-size: 11px; letter-spacing: .28em; text-transform: uppercase;
+    font-weight: 500; color: var(--green); opacity: .55;
+  }
+  .track h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(36px, 4.5vw, 64px);
+    line-height: .95; letter-spacing: -.02em; margin-top: 14px;
+    color: var(--green); text-transform: uppercase;
+  }
+  .track h2 em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic; font-weight: 400; text-transform: lowercase;
+  }
+
+  /* Headline numbers — the moment */
+  .track-headline {
+    margin-top: 56px;
+    display: flex; align-items: stretch; justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+  .track-headline-stat {
+    flex: 1; min-width: 140px;
+    text-align: center;
+    padding: 0 28px;
+  }
+  .track-headline-num {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(56px, 7vw, 96px);
+    line-height: .95; letter-spacing: -.025em;
+    color: var(--green);
+  }
+  .track-headline-num small {
+    font-family: 'Manrope', sans-serif;
+    font-size: .35em; font-weight: 500;
+    opacity: .55; margin-left: 2px;
+    letter-spacing: 0;
+  }
+  .track-headline-lbl {
+    margin-top: 10px;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    font-weight: 500; color: var(--green); opacity: .55;
+  }
+  .track-headline-divider {
+    width: 1px; align-self: stretch;
+    background: rgba(20,48,31,.15);
+    margin: 12px 0;
+  }
+  @media (max-width: 720px) {
+    .track-headline { gap: 24px; flex-direction: column; }
+    .track-headline-divider {
+      width: 60px; height: 1px; margin: 0 auto;
+    }
+    .track-headline-stat { padding: 0; }
+  }
+
+  /* ===== DASHBOARD PROOF (the real visual) ===== */
+  .dashboard-proof {
+    margin-top: 40px;
+    background: #fff;
+    border: 1px solid rgba(20,48,31,.1);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 1px rgba(20,48,31,.03), 0 24px 48px -24px rgba(20,48,31,.18);
+    position: relative;
+  }
+  .dashboard-chrome {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 18px;
+    background: #fafafa;
+    border-bottom: 1px solid rgba(20,48,31,.08);
+    font-family: 'SF Mono', Menlo, Monaco, monospace;
+    font-size: 11px; color: rgba(20,48,31,.55);
+    letter-spacing: .02em;
+  }
+  .dashboard-chrome-left { display: flex; align-items: center; gap: 8px; }
+  .dashboard-chrome-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(20,48,31,.15);
+  }
+  .dashboard-chrome-dot.r { background: #ff5f57; }
+  .dashboard-chrome-dot.y { background: #febc2e; }
+  .dashboard-chrome-dot.g { background: #28c840; }
+  .dashboard-chrome-url {
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px; opacity: .6; margin-left: 12px;
+    letter-spacing: .03em;
+  }
+  .dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Manrope', sans-serif;
+    font-size: 12px;
+    color: #1a1a1a;
+  }
+  .dashboard-table thead {
+    background: #fafafa;
+    border-bottom: 1px solid rgba(20,48,31,.08);
+  }
+  .dashboard-table th {
+    padding: 14px 14px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: .04em;
+    color: rgba(20,48,31,.65);
+    text-transform: none;
+    white-space: nowrap;
+  }
+  .dashboard-table th.num { text-align: right; }
+  .dashboard-table td {
+    padding: 16px 14px;
+    border-bottom: 1px solid rgba(20,48,31,.06);
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+  }
+  .dashboard-table td.num { text-align: right; font-weight: 500; }
+  .dashboard-table tr:last-child td {
+    border-bottom: none;
+    background: #f5f5f0;
+    font-weight: 600;
+  }
+  .dashboard-table tr:last-child td.num {
+    color: var(--green);
+    font-weight: 700;
+  }
+  .dashboard-redacted {
+    display: inline-block;
+    background: rgba(20,48,31,.85);
+    color: rgba(255,255,255,.6);
+    padding: 1px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .dashboard-caption {
+    margin-top: 20px; text-align: center;
+    font-size: 12px; color: var(--green); opacity: .7;
+    letter-spacing: .04em;
+    font-weight: 500;
+  }
+
+  @media (max-width: 760px) {
+    .dashboard-proof { font-size: 10px; }
+    .dashboard-table th, .dashboard-table td { padding: 10px 8px; font-size: 10.5px; }
+    .dashboard-chrome { padding: 10px 14px; font-size: 10px; }
+    .dashboard-chrome-url { display: none; }
+  }
+
+  /* ===== STATS ===== */
+  .stats { background: var(--green); color: var(--cream); padding: 80px 28px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+  .stat .num { font-family: 'Anton', sans-serif; font-size: clamp(56px, 8vw, 110px); line-height: 1; color: var(--yellow); }
+  .stat .lbl { margin-top: 10px; font-size: 13px; letter-spacing: .15em; text-transform: uppercase; opacity: .7; }
+
+  /* ===== PLANS / SELF-CHECKOUT ===== */
+  .plans { background: var(--cream); padding: 100px 28px; position: relative; }
+  .plans-inner { max-width: 1200px; margin: 0 auto; }
+  .plans-header { text-align: center; max-width: 640px; margin: 0 auto 48px; }
+  .plans .eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--green); opacity: .55; font-weight: 500; }
+  .plans h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(36px, 4.5vw, 64px); line-height: .95; letter-spacing: -.02em;
+    color: var(--green); text-transform: uppercase; margin-top: 14px;
+  }
+  .plans h2 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; text-transform: lowercase; }
+  .plans-sub { margin: 14px auto 0; max-width: 540px; font-size: 14px; line-height: 1.6; color: var(--ink); opacity: .7; font-weight: 400; }
+
+  .plans-offer {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-top: 24px;
+    background: var(--cream-warm); color: var(--green);
+    border: 1px solid rgba(20,48,31,.12);
+    padding: 11px 18px; border-radius: 999px;
+    font-size: 13px; font-weight: 600; letter-spacing: .03em;
+  }
+  .plans-offer-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--green); animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .35; }
+  }
+
+  .plans-niche {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(20,48,31,.12);
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px; line-height: 1.5;
+    color: var(--green); opacity: .7;
+    font-weight: 500; letter-spacing: .01em;
+  }
+  .plans-niche em { font-style: normal; font-weight: 600; opacity: 1; }
+  .plans-niche a {
+    color: var(--green); font-weight: 600;
+    text-decoration: underline; text-underline-offset: 4px;
+    margin-left: 4px;
+    transition: opacity .2s ease;
+  }
+  .plans-niche a:hover { opacity: .65; }
+
+  .plans-grid {
+    margin-top: 0; display: grid; gap: 14px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    align-items: stretch;
+  }
+  .plan {
+    background: rgba(255, 255, 255, .55);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, .6);
+    border-radius: 18px; padding: 28px 24px;
+    display: flex; flex-direction: column; gap: 14px;
+    position: relative;
+    box-shadow: 0 1px 1px rgba(20,48,31,.03), 0 12px 32px -16px rgba(20,48,31,.1);
+  }
+  .plan.featured {
+    background: rgba(20, 48, 31, .9);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border-color: rgba(241,236,223,.15);
+    color: var(--cream);
+    transform: translateY(-10px);
+    box-shadow: 0 24px 44px -22px rgba(20,48,31,.45);
+  }
+  .plan-popular {
+    position: absolute; top: -12px; left: 24px;
+    background: var(--yellow); color: var(--green);
+    padding: 5px 12px; border-radius: 999px;
+    font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  }
+  .plan-tag {
+    font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+    font-weight: 600; opacity: .55;
+  }
+  .plan-name {
+    font-family: 'Anton', sans-serif; font-size: 26px;
+    line-height: 1; letter-spacing: .02em; text-transform: uppercase;
+  }
+  .plan-price {
+    font-family: 'Anton', sans-serif; font-size: 76px; line-height: 1;
+    color: var(--green); letter-spacing: -.02em;
+  }
+  .plan.featured .plan-price { color: var(--yellow); }
+  .plan-price span {
+    font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 500;
+    opacity: .55; margin-left: 4px; letter-spacing: .02em;
+  }
+  .plan-setup {
+    font-size: 11px; opacity: .65; margin-top: -6px;
+    letter-spacing: .02em;
+  }
+  .plan-setup s { opacity: .55; margin-right: 6px; }
+  .plan-features {
+    list-style: none; display: flex; flex-direction: column; gap: 8px;
+    font-size: 13.5px; line-height: 1.5; flex-grow: 1; padding: 6px 0 4px;
+  }
+  .plan-features li {
+    padding-left: 20px; position: relative;
+  }
+  .plan-features li::before {
+    content: "✓"; position: absolute; left: 0; top: 0;
+    font-weight: 700; color: var(--green);
+  }
+  .plan.featured .plan-features li::before { color: var(--cream); }
+  .plan-cta {
+    display: block; text-align: center; padding: 12px 18px;
+    border-radius: 999px; font-weight: 600; font-size: 13px;
+    text-decoration: none;
+    background: var(--green); color: var(--cream);
+    transition: transform .2s ease;
+  }
+  .plan-cta:hover { transform: translateY(-1px); }
+  .plan-cta.featured { background: var(--cream); color: var(--green); }
+  .plan-cta.outline { background: transparent; color: var(--green); border: 1.5px solid var(--green); }
+
+  .plans-footer {
+    margin-top: 36px; text-align: center;
+    font-size: 13.5px; color: var(--green); opacity: .8;
+  }
+  .plans-footer a { color: var(--green); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+
+  @media (max-width: 760px) {
+    .plan.featured { transform: none; }
+  }
+
+  /* ===== TESTIMONIAL ===== */
+  .testimonial { background: var(--cream-warm); padding: 100px 28px; position: relative; }
+  .testimonial-inner { max-width: 1000px; margin: 0 auto; }
+  .testimonial .eyebrow { font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--green); opacity: .55; margin-bottom: 28px; }
+  .testimonial blockquote {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(26px, 3.6vw, 46px); line-height: 1.22; color: var(--green);
+    letter-spacing: -.02em;
+  }
+  .testimonial blockquote .hl { background: var(--yellow); padding: 0 .1em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .attrib { margin-top: 40px; display: flex; align-items: center; gap: 16px; }
+  .avatar { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #4a7a5e, #14301f); }
+  .attrib .name { font-weight: 700; color: var(--green); }
+  .attrib .role { font-size: 13px; color: var(--green); opacity: .6; }
+
+  /* ===== ADD-ONS (small accessory shelf) ===== */
+  .addons {
+    background: var(--cream-warm);
+    padding: 40px 0 48px;
+    overflow: hidden;
+  }
+  .addons-header {
+    max-width: 1400px; margin: 0 auto;
+    padding: 0 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 20px; flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .addons-header-left { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .addons .eyebrow {
+    font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
+    color: var(--green); opacity: .55; font-weight: 500;
+  }
+  .addons h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: 22px;
+    line-height: 1; color: var(--green); text-transform: uppercase;
+    letter-spacing: .02em;
+  }
+  .addons h2 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; text-transform: lowercase; letter-spacing: -.01em; }
+  .addons-sub {
+    font-size: 12px; line-height: 1.5; color: var(--ink); opacity: .6;
+  }
+  .addons-controls {
+    display: flex; gap: 6px;
+    flex-shrink: 0;
+  }
+  .addons-arrow {
+    width: 32px; height: 32px;
+    border-radius: 999px;
+    background: transparent;
+    border: 1px solid rgba(20,48,31,.2);
+    color: var(--green);
+    cursor: pointer;
+    display: grid; place-items: center;
+    font-size: 12px;
+    transition: all .2s;
+    font-family: 'Manrope', sans-serif;
+  }
+  .addons-arrow:hover { background: var(--green); color: var(--cream); border-color: var(--green); }
+  .addons-arrow:disabled { opacity: .3; cursor: default; }
+  .addons-arrow:disabled:hover { background: transparent; color: var(--green); border-color: rgba(20,48,31,.2); }
+
+  .addons-track-wrap {
+    overflow: hidden;
+    padding: 0 40px;
+    margin: 0 auto;
+    max-width: 1400px;
+  }
+  .addons-track {
+    display: flex; gap: 10px;
+    transition: transform .5s cubic-bezier(.4, 0, .2, 1);
+    will-change: transform;
+  }
+  .addon {
+    flex-shrink: 0;
+    width: 220px;
+    background: rgba(255, 255, 255, .55);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, .6);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: 0 1px 2px rgba(20,48,31,.04), 0 4px 12px -8px rgba(20,48,31,.08);
+    transition: transform .3s ease;
+  }
+  .addon:hover { transform: translateY(-2px); }
+  .addon-visual {
+    aspect-ratio: 16/9;
+    background: var(--cream);
+    border-bottom: 1px solid rgba(20,48,31,.08);
+    position: relative;
+    display: grid; place-items: center;
+    overflow: hidden;
+  }
+  .addon-visual-icon { width: 42px; height: 42px; position: relative; z-index: 1; }
+  .addon-visual-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(20,48,31,.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(20,48,31,.04) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: .5;
+  }
+  .addon-body {
+    padding: 14px 14px 12px;
+    display: flex; flex-direction: column; gap: 6px;
+    flex-grow: 1;
+  }
+  .addon-tag {
+    font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+    font-weight: 600; color: var(--green); opacity: .55;
+  }
+  .addon-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 15px; line-height: 1.05; letter-spacing: .02em;
+    color: var(--green); text-transform: uppercase;
+  }
+  .addon-desc {
+    font-size: 11.5px; line-height: 1.45; color: var(--ink); opacity: .7;
+    flex-grow: 1;
+  }
+  .addon-price-row {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding-top: 8px; border-top: 1px solid rgba(20,48,31,.1);
+    gap: 8px; margin-top: 4px;
+  }
+  .addon-price {
+    font-family: 'Anton', sans-serif;
+    font-size: 16px; color: var(--green); line-height: 1;
+  }
+  .addon-price small {
+    font-family: 'Manrope', sans-serif;
+    font-size: 9px; font-weight: 500; opacity: .55; margin-left: 2px;
+  }
+  .addon-cta {
+    background: var(--green); color: var(--cream);
+    padding: 6px 10px; border-radius: 999px;
+    font-size: 9.5px; font-weight: 600; letter-spacing: .04em;
+    text-decoration: none;
+    transition: background .2s ease;
+  }
+  .addon-cta:hover { background: var(--green-deep); }
+  .addons-footer {
+    margin-top: 20px; text-align: center;
+    padding: 0 40px;
+    font-size: 11.5px; color: var(--green); opacity: .65;
+  }
+  .addons-footer a { color: var(--green); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+  @media (max-width: 720px) {
+    .addons { padding: 32px 0 40px; }
+    .addons-header { padding: 0 20px; margin-bottom: 20px; }
+    .addons-track-wrap { padding: 0 20px; }
+    .addons-controls { display: none; }
+    .addon { width: 200px; }
+    .addon-visual-icon { width: 38px; height: 38px; }
+    .addon-name { font-size: 14px; }
+    .addons-footer { padding: 0 20px; margin-top: 18px; }
+  }
+
+  /* ===== MANIFESTO (the human moment) ===== */
+  .manifesto {
+    background: var(--cream);
+    padding: 100px 28px;
+    position: relative;
+  }
+  .manifesto-inner {
+    max-width: 820px; margin: 0 auto;
+    text-align: left;
+  }
+  .manifesto-eyebrow {
+    font-size: 11px; letter-spacing: .28em; text-transform: uppercase;
+    color: var(--green); opacity: .55; font-weight: 500;
+    margin-bottom: 32px;
+  }
+  .manifesto-text {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(24px, 3vw, 38px);
+    line-height: 1.35; letter-spacing: -.005em;
+    color: var(--green);
+    font-weight: 400;
+  }
+  .manifesto-text em { font-style: italic; }
+  .manifesto-sig {
+    margin-top: 36px;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 13px; letter-spacing: .04em;
+    color: var(--green); opacity: .75;
+  }
+  .manifesto-sig-mark {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 28px; line-height: 1;
+    color: var(--green);
+  }
+  .manifesto-sig-meta {
+    display: flex; flex-direction: column; gap: 2px;
+    font-family: 'Manrope', sans-serif;
+  }
+  .manifesto-sig-name { font-weight: 600; opacity: 1; font-size: 13px; }
+  .manifesto-sig-title { font-size: 11px; opacity: .6; letter-spacing: .06em; text-transform: uppercase; }
+
+  @media (max-width: 720px) {
+    .manifesto { padding: 64px 20px; }
+    .manifesto-text { font-size: 22px; }
+  }
+
+  /* ===== THE PROMISE (clean, text-only) ===== */
+  .promise {
+    background: var(--green);
+    color: var(--cream);
+    padding: 88px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .promise-inner {
+    max-width: 920px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .promise-eyebrow {
+    font-size: 11px; letter-spacing: .28em; text-transform: uppercase;
+    opacity: .5; font-weight: 500;
+  }
+  .promise-text {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(36px, 5vw, 72px);
+    line-height: .98; letter-spacing: -.025em;
+    text-transform: uppercase;
+  }
+  .promise-text em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic; font-weight: 400;
+    text-transform: lowercase;
+    letter-spacing: -.02em;
+    color: var(--yellow);
+  }
+  .promise-detail {
+    margin-top: 12px;
+    font-size: 14px; line-height: 1.6;
+    opacity: .65; max-width: 520px;
+    font-weight: 400;
+  }
+
+  @media (max-width: 720px) {
+    .promise { padding: 56px 20px; }
+    .promise-text { font-size: 32px; }
+  }
+
+  /* ===== READY CHECKLIST ===== */
+  .ready { background: var(--cream); padding: 100px 28px; }
+  .ready-inner {
+    max-width: 920px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 56px;
+  }
+  .ready-header { text-align: center; max-width: 640px; margin: 0 auto; }
+  .ready-eyebrow {
+    font-size: 11px; letter-spacing: .28em; text-transform: uppercase;
+    color: var(--green); opacity: .55; font-weight: 500;
+  }
+  .ready-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(36px, 4.5vw, 64px);
+    line-height: .95; letter-spacing: -.02em;
+    color: var(--green);
+    text-transform: uppercase; margin-top: 14px;
+  }
+  .ready-title em {
+    font-family: 'Instrument Serif', serif; font-style: italic;
+    font-weight: 400; text-transform: lowercase; letter-spacing: -.02em;
+  }
+  .ready-sub {
+    margin-top: 14px; font-size: 14px; line-height: 1.6;
+    color: var(--ink); opacity: .7; font-weight: 400;
+  }
+  .ready-instruction {
+    margin-top: 18px; font-size: 12px; letter-spacing: .04em;
+    color: var(--green); opacity: .6;
+    font-style: italic;
+    font-family: 'Instrument Serif', serif;
+  }
+  .ready-list { display: flex; flex-direction: column; }
+  .ready-row {
+    display: flex; align-items: center; gap: 18px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(20,48,31,.1);
+    cursor: pointer;
+    transition: opacity .25s ease;
+  }
+  .ready-row:first-child { border-top: 1px solid rgba(20,48,31,.1); }
+  .ready-row:hover { opacity: .7; }
+  .ready-check {
+    width: 22px; height: 22px; flex-shrink: 0;
+    border-radius: 50%;
+    border: 1.5px solid rgba(20,48,31,.25);
+    display: grid; place-items: center;
+    transition: all .25s cubic-bezier(.4, 0, .2, 1);
+    background: transparent;
+  }
+  .ready-check svg {
+    width: 11px; height: 11px;
+    stroke: var(--cream);
+    stroke-width: 3;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0;
+    transition: opacity .25s;
+  }
+  .ready-row.checked .ready-check {
+    background: var(--green);
+    border-color: var(--green);
+  }
+  .ready-row.checked .ready-check svg { opacity: 1; }
+  .ready-row.checked .ready-row-text { opacity: .55; text-decoration: line-through; }
+
+  .ready-row-text { flex-grow: 1; font-size: 15px; color: var(--ink); font-weight: 500; letter-spacing: -.005em; transition: opacity .25s, text-decoration .25s; }
+  .ready-row-help {
+    font-size: 12px; font-weight: 600; color: var(--green);
+    text-decoration: underline; text-underline-offset: 4px;
+    white-space: nowrap; letter-spacing: .02em;
+    transition: opacity .2s ease;
+  }
+  .ready-row-help:hover { opacity: .65; }
+  .ready-row-help.muted { opacity: .4; text-decoration: none; }
+
+  .ready-summary {
+    margin-top: 32px; text-align: center;
+    font-size: 13px; color: var(--green); opacity: .7;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+  }
+  .ready-summary strong {
+    font-family: 'Manrope', sans-serif;
+    font-style: normal; font-weight: 600;
+    color: var(--green); opacity: 1;
+  }
+
+  @media (max-width: 760px) {
+    .ready { padding: 56px 20px; }
+    .ready-row { padding: 14px 0; gap: 14px; }
+    .ready-row-text { font-size: 14px; }
+  }
+
+  /* ===== FAQ ===== */
+  .faq { background: var(--green); color: var(--cream); padding: 100px 28px; }
+  .faq-inner { max-width: 900px; margin: 0 auto; }
+  .faq .eyebrow { font-size: 13px; letter-spacing: .2em; text-transform: uppercase; opacity: .6; }
+  .faq h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(44px, 7vw, 80px);
+    line-height: .95; margin-top: 18px; text-transform: uppercase;
+  }
+  .faq h2 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--yellow); text-transform: lowercase; }
+  .faq-list { margin-top: 48px; display: flex; flex-direction: column; gap: 14px; }
+  .faq-item {
+    background: rgba(241,236,223,.04);
+    border: 1px solid rgba(241,236,223,.12);
+    border-radius: 16px; padding: 22px 24px;
+    cursor: pointer;
+    transition: background .2s ease;
+  }
+  .faq-item:hover { background: rgba(241,236,223,.08); }
+  .faq-q {
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 600;
+    list-style: none;
+  }
+  .faq-q::-webkit-details-marker { display: none; }
+  .faq-q::after {
+    content: "+"; font-size: 24px; font-weight: 400;
+    transition: transform .2s ease;
+    color: var(--yellow);
+  }
+  details[open] .faq-q::after { transform: rotate(45deg); }
+  .faq-a {
+    margin-top: 14px; font-size: 14px; line-height: 1.6;
+    opacity: .8;
+  }
+
+  /* ===== CTA ===== */
+  .cta { background: var(--green-deep); color: var(--cream); padding: 120px 28px; position: relative; overflow: hidden; }
+  .cta-inner { max-width: 1200px; margin: 0 auto; }
+  .cta h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(48px, 9vw, 132px); line-height: .9; letter-spacing: -.025em;
+    text-transform: uppercase;
+  }
+  .cta h2 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--cream); text-transform: lowercase; letter-spacing: -.02em; opacity: .85; }
+  .cta p { margin-top: 20px; font-size: 15px; line-height: 1.6; opacity: .7; max-width: 480px; font-weight: 400; }
+  .cta-row { display: flex; gap: 12px; margin-top: 40px; flex-wrap: wrap; }
+  .cta .pill { font-size: 13px; padding: 13px 22px; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--green-deep); color: var(--cream);
+    padding: 64px 28px 36px; border-top: 1px solid rgba(241,236,223,.08);
+  }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px;
+  }
+  .footer-bio {
+    font-size: 14px; line-height: 1.7; opacity: .75; max-width: 480px;
+    font-weight: 400;
+  }
+  .footer-bio strong { color: var(--cream); opacity: 1; font-weight: 600; }
+  .footer-meta {
+    display: flex; flex-direction: column; gap: 12px;
+    font-size: 13px; opacity: .6;
+  }
+  .footer-meta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .footer-meta a {
+    color: var(--cream); text-decoration: none; opacity: .8;
+    transition: opacity .2s ease;
+  }
+  .footer-meta a:hover { opacity: 1; }
+  .footer-bottom {
+    max-width: 1200px; margin: 40px auto 0;
+    padding-top: 24px; border-top: 1px solid rgba(241,236,223,.08);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; opacity: .55; letter-spacing: .02em;
+  }
+  @media (max-width: 720px) {
+    footer { padding: 48px 20px 28px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bio { font-size: 13.5px; }
+  }
+
+  /* squiggle SVG line accent */
+  .squiggle { display: inline-block; vertical-align: middle; }
+
+  /* ===== LAPTOP / SMALL DESKTOP — 721px to 1440px ===== */
+  @media (min-width: 721px) and (max-width: 1440px) {
+    /* nav */
+    nav { padding: 16px 28px; }
+
+    /* hero — keep big but rein in vw scaling */
+    .hero { padding: 64px 32px 56px; }
+    .hero h1 {
+      font-size: clamp(64px, 9vw, 132px);
+    }
+    .hero-sub { font-size: 16px; max-width: 520px; }
+
+    /* badges — adjust for laptop right margin */
+    .badges { right: 4%; top: 22%; }
+    .badge.b1 { right: 30px; }
+    .badge.b3 { right: 50px; }
+
+    /* generic section padding */
+    .services, .plans, .track, .ready {
+      padding: 72px 32px;
+    }
+    .addons { padding: 64px 0 80px; }
+    .stats { padding: 56px 32px; }
+
+    /* services */
+    .svc-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 40px; }
+    .svc-card { min-height: 260px; padding: 26px; }
+    .svc-title { font-size: 26px; }
+
+    /* track record */
+    .track-headline { margin-top: 44px; }
+    .track-headline-num { font-size: clamp(48px, 6vw, 80px); }
+    .track-headline-stat { padding: 0 20px; }
+
+    /* stats */
+    .stats-grid { gap: 28px; }
+    .stat .num { font-size: clamp(44px, 6vw, 76px); }
+
+    /* plans */
+    .plans-grid {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1100px;
+      gap: 14px;
+      margin-top: 40px;
+    }
+    .plan { padding: 26px 22px; }
+    .plan-name { font-size: 24px; }
+    .plan-price { font-size: 64px; }
+    .plan-features { font-size: 13px; }
+
+    /* addons */
+    .addon { width: 320px; }
+    .addon-name { font-size: 22px; }
+    .addon-price { font-size: 24px; }
+
+    /* cta */
+    .cta { padding: 88px 32px; }
+  }
+
+  /* ===== MOBILE — ≤720px ===== */
+  @media (max-width: 720px) {
+    /* nav */
+    nav { padding: 12px 16px; }
+    .logo { font-size: 18px; }
+    nav .pill { padding: 8px 12px; font-size: 11px; }
+    nav .pill .dot { width: 6px; height: 6px; }
+
+    /* disable noise texture overlay on mobile — iOS Safari renders SVG filters unreliably */
+    .grain::before { display: none; }
+
+    /* HERO */
+    .hero { padding: 48px 20px 40px; }
+    .hero h1 {
+      font-size: 48px;
+      line-height: .98;
+      letter-spacing: -.01em;
+    }
+    .hero h1 .bolt { width: .8em; height: .8em; }
+    .hero-sub { font-size: 15px; margin-top: 22px; line-height: 1.5; }
+    .hero-cta {
+      margin-top: 26px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+    .hero-cta .pill {
+      width: 100%;
+      justify-content: center;
+      padding: 14px 20px;
+      font-size: 14px;
+    }
+
+    /* shared section padding */
+    .services, .plans, .track, .ready { padding: 56px 20px; }
+    .stats { padding: 48px 20px; }
+    .cta { padding: 72px 20px; }
+
+    /* TRACK RECORD on mobile */
+    .track h2 { font-size: 36px; line-height: .98; }
+    .track-headline { margin-top: 36px; }
+    .track-headline-num { font-size: 56px; }
+
+    /* SERVICES — force single col, fix overflow */
+    .services h2 { font-size: 36px; }
+    .svc-grid {
+      margin-top: 32px;
+      gap: 12px;
+      grid-template-columns: 1fr;
+    }
+    .svc-card {
+      min-height: auto;
+      padding: 24px 20px;
+      gap: 12px;
+    }
+    .svc-card .arrow { top: 20px; right: 20px; width: 30px; height: 30px; font-size: 15px; }
+    .svc-title { font-size: 24px; }
+    .svc-desc { font-size: 14px; }
+    .svc-tags span { font-size: 10px; padding: 5px 10px; }
+
+    /* STATS — 2 cols on phone */
+    .stats-grid {
+      gap: 24px 16px;
+      grid-template-columns: 1fr 1fr;
+    }
+    .stat .num { font-size: 48px; }
+    .stat .lbl { font-size: 11px; letter-spacing: .1em; }
+
+    /* PLANS — force single col, fix overflow */
+    .plans h2 { font-size: 36px; }
+    .plans-sub { font-size: 14px; margin-top: 14px; }
+    .plans-offer {
+      font-size: 11px;
+      padding: 9px 14px;
+      margin-top: 18px;
+      letter-spacing: .02em;
+    }
+    .plans-grid {
+      margin-top: 32px;
+      gap: 14px;
+      grid-template-columns: 1fr;
+    }
+    .plan {
+      padding: 24px 20px;
+      gap: 12px;
+    }
+    .plan.featured { transform: none; }
+    .plan-name { font-size: 22px; }
+    .plan-price { font-size: 48px; }
+    .plan-price span { font-size: 13px; }
+    .plan-popular { left: 18px; font-size: 10px; padding: 5px 12px; }
+    .plan-features { font-size: 13px; gap: 8px; padding: 6px 0 2px; }
+    .plan-cta { padding: 12px 18px; font-size: 13px; }
+    .plans-footer { font-size: 13px; margin-top: 28px; }
+
+    /* CTA */
+    .cta h2 { font-size: 48px; line-height: .95; }
+    .cta p { font-size: 15px; margin-top: 20px; }
+    .cta-row {
+      gap: 10px;
+      flex-direction: column;
+      align-items: stretch;
+      margin-top: 28px;
+    }
+    .cta .pill {
+      width: 100%;
+      justify-content: center;
+      padding: 14px 18px;
+      font-size: 14px;
+    }
+
+    /* FOOTER */
+    footer {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 28px 20px;
+      gap: 12px;
+      font-size: 12px;
+    }
+    footer a { margin-right: 12px; }
+  }
+
+  /* ===== EXTRA SMALL — ≤380px ===== */
+  @media (max-width: 380px) {
+    .hero { padding: 40px 18px 36px; }
+    .hero h1 { font-size: 42px; }
+    .manifesto p { font-size: 22px; }
+    .services h2,
+    .work-head h2,
+    .process h2,
+    .plans h2 { font-size: 36px; }
+    .cta h2 { font-size: 46px; }
+    .testimonial blockquote { font-size: 20px; }
+    .marquee-track { font-size: 20px; }
+    .stat .num { font-size: 44px; }
+  }
+  /* ===== SCROLL FADE-IN ANIMATIONS (Apple-style) ===== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .9s cubic-bezier(.25, .1, .25, 1), transform .9s cubic-bezier(.25, .1, .25, 1);
+    will-change: opacity, transform;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-in.delay-1 { transition-delay: .08s; }
+  .fade-in.delay-2 { transition-delay: .16s; }
+  .fade-in.delay-3 { transition-delay: .24s; }
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ===== SCROLL PROGRESS INDICATOR ===== */
+  .scroll-indicator {
+    position: fixed;
+    top: 50%;
+    right: 18px;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 200px;
+    background: rgba(20,48,31,.08);
+    border-radius: 999px;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity .4s ease;
+    pointer-events: none;
+  }
+  .scroll-indicator.visible { opacity: 1; }
+  .scroll-indicator-fill {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 0%;
+    background: var(--green);
+    border-radius: 999px;
+    transition: height .1s ease-out;
+  }
+  @media (max-width: 720px) {
+    .scroll-indicator { right: 10px; height: 140px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SCROLL INDICATOR -->
+<div class="scroll-indicator" id="scrollIndicator">
+  <div class="scroll-indicator-fill" id="scrollIndicatorFill"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div style="display: flex; align-items: baseline; gap: 14px;">
+    <a href="/" style="text-decoration:none;"><div class="logo">MARAD<span style="color:var(--yellow)">.</span></div></a>
+    <span class="nav-place">Metro Detroit</span>
+  </div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#plans">Plans</a>
+    <a href="/faq">FAQ</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="pill"><span class="dot"></span> Free strategy call</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero grain">
+  <h1>
+    Most ads<br>
+    don't work.<br>
+    Yours <em>
+      <!-- inline lightning bolt -->
+      <svg class="bolt" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14 2 L4 14 L11 14 L9 22 L20 9 L13 9 Z" fill="#f4d03c" stroke="#14301f" stroke-width="1.4" stroke-linejoin="round"/>
+      </svg>
+      can.
+    </em>
+  </h1>
+
+  <p class="hero-sub">
+    Meta and Google ads, run daily by senior strategists — for service businesses that have been burned before. Cancel anytime.
+  </p>
+
+  <div class="hero-cta">
+    <a href="#plans" class="pill">See plans →</a>
+    <a href="#contact" class="pill" style="background:transparent; color:var(--green); border:1.5px solid var(--green)">Book a call</a>
+  </div>
+  <p class="hero-meta">Plans from $897/mo · Cancel anytime · No setup fee this week</p>
+</section>
+
+<!-- TRACK RECORD -->
+<section class="track">
+  <div class="track-inner fade-in">
+    <div class="track-header">
+      <div class="eyebrow">— The numbers</div>
+      <h2>One client.<br>One <em>year.</em></h2>
+    </div>
+
+    <!-- Headline numbers (the moment) -->
+    <div class="track-headline">
+      <div class="track-headline-stat">
+        <div class="track-headline-num">8.11<small>×</small></div>
+        <div class="track-headline-lbl">ROAS</div>
+      </div>
+      <div class="track-headline-divider"></div>
+      <div class="track-headline-stat">
+        <div class="track-headline-num">$849K</div>
+        <div class="track-headline-lbl">Conversion Value</div>
+      </div>
+      <div class="track-headline-divider"></div>
+      <div class="track-headline-stat">
+        <div class="track-headline-num">63,457</div>
+        <div class="track-headline-lbl">Clicks</div>
+      </div>
+    </div>
+
+    <!-- Real dashboard proof -->
+    <div class="dashboard-proof fade-in">
+      <div class="dashboard-chrome">
+        <div class="dashboard-chrome-left">
+          <span class="dashboard-chrome-dot r"></span>
+          <span class="dashboard-chrome-dot y"></span>
+          <span class="dashboard-chrome-dot g"></span>
+          <span class="dashboard-chrome-url">ads.google.com / campaigns</span>
+        </div>
+        <span style="font-size:10px;letter-spacing:.04em;">12-month view</span>
+      </div>
+      <table class="dashboard-table">
+        <thead>
+          <tr>
+            <th>Campaign</th>
+            <th class="num">Cost / Conv.</th>
+            <th class="num">Conv. Rate</th>
+            <th class="num">Conv. Value</th>
+            <th class="num">ROAS</th>
+            <th class="num">Clicks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="dashboard-redacted">Campaign 01</span></td>
+            <td class="num">$13.53</td>
+            <td class="num">11.16%</td>
+            <td class="num">$394,570.23</td>
+            <td class="num">8.36×</td>
+            <td class="num">31,272</td>
+          </tr>
+          <tr>
+            <td><span class="dashboard-redacted">Campaign 02</span></td>
+            <td class="num">$18.45</td>
+            <td class="num">9.86%</td>
+            <td class="num">$388,293.82</td>
+            <td class="num">7.49×</td>
+            <td class="num">28,514</td>
+          </tr>
+          <tr>
+            <td><span class="dashboard-redacted">Campaign 03</span></td>
+            <td class="num">$14.80</td>
+            <td class="num">12.29%</td>
+            <td class="num">$25,965.03</td>
+            <td class="num">9.60×</td>
+            <td class="num">1,487</td>
+          </tr>
+          <tr>
+            <td><span class="dashboard-redacted">Campaign 04</span></td>
+            <td class="num">$10.58</td>
+            <td class="num">13.21%</td>
+            <td class="num">$40,922.56</td>
+            <td class="num">13.42×</td>
+            <td class="num">2,184</td>
+          </tr>
+          <tr>
+            <td><strong>TOTAL</strong></td>
+            <td class="num">$15.48</td>
+            <td class="num">10.67%</td>
+            <td class="num">$849,751.64</td>
+            <td class="num">8.11×</td>
+            <td class="num">63,457</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="dashboard-caption">
+      Real account. Live for 12 months. Names removed for privacy.
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO (the human moment) -->
+<section class="manifesto">
+  <div class="manifesto-inner fade-in">
+    <div class="manifesto-eyebrow">— A note from the founder</div>
+    <p class="manifesto-text">
+      I learned ads in environments where every dollar gets a meeting — corporate teams, layered approvals, performance reviews built around every percent of conversion rate. Most service businesses never see that level of rigor. <em>They get the version no one's paying attention to.</em> MARAD exists to flip that.
+    </p>
+    <div class="manifesto-sig">
+      <span class="manifesto-sig-mark">— Mya</span>
+      <div class="manifesto-sig-meta">
+        <span class="manifesto-sig-name">Mya</span>
+        <span class="manifesto-sig-title">Founder · Metro Detroit</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="fade-in">
+    <div class="eyebrow">/ The offer</div>
+    <h2>One service.<br>Done <em>obsessively.</em></h2>
+  </div>
+
+  <div class="svc-grid fade-in delay-2">
+    <!-- Card 1 -->
+    <div class="svc-card">
+      <div class="arrow">→</div>
+      <div class="svc-num">01 / STRATEGY &amp; SETUP</div>
+      <div class="svc-title">Account<br>Foundation</div>
+      <div class="svc-desc">Your ad account gets rebuilt from the ground up — audience research, campaign structure, conversion tracking, pixel hygiene. Every dollar measurable from day one.</div>
+      <div class="svc-tags">
+        <span>Audit &amp; rebuild</span><span>Conversion tracking</span><span>Audience research</span>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="svc-card dark">
+      <div class="arrow">→</div>
+      <div class="svc-num">02 / CREATIVE DIRECTION</div>
+      <div class="svc-title">Ads That<br>Convert</div>
+      <div class="svc-desc">Concepts, scripts, hooks, and creative briefs — built around what's actually performing. Vetted UGC creators and designers handle production. Fresh creative as needed, directed end-to-end. No stock, no slop.</div>
+      <div class="svc-tags">
+        <span>Meta + Google</span><span>UGC scripting</span><span>Hooks &amp; angles</span>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="svc-card">
+      <div class="arrow">→</div>
+      <div class="svc-num">03 / DAILY MANAGEMENT</div>
+      <div class="svc-title">In Your<br>Account Daily</div>
+      <div class="svc-desc">Active campaign optimization, budget reallocation, A/B testing. Someone's inside your ad account every single day — not once a month with a report.</div>
+      <div class="svc-tags">
+        <span>Daily optimization</span><span>A/B testing</span><span>Budget scaling</span>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="svc-card dark">
+      <div class="arrow">→</div>
+      <div class="svc-num">04 / REPORTING</div>
+      <div class="svc-title">Reports You'll<br>Actually Read</div>
+      <div class="svc-desc">Weekly performance updates via Slack or email. Monthly strategy review. Plain-English numbers tied to revenue. No 47-slide PDFs no one opens.</div>
+      <div class="svc-tags">
+        <span>Slack updates</span><span>Weekly reports</span><span>Monthly reviews</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS / SELF-CHECKOUT -->
+<section class="plans grain" id="plans">
+  <div class="plans-inner fade-in">
+    <div class="plans-header">
+      <div class="eyebrow">/ Skip the line</div>
+      <h2>Pick a plan.<br>Start <em>today.</em></h2>
+      <p class="plans-sub">
+        No discovery call required. Flat monthly pricing, transparent deliverables. Month-to-month — cancel anytime.
+      </p>
+
+      <div class="plans-offer">
+        <span class="plans-offer-dot"></span>
+        Limited: $250 setup fee waived if you start this week
+      </div>
+
+      <p class="plans-niche">
+        <em>Run a med spa?</em> <a href="/medspas">See specialized pricing →</a>
+      </p>
+    </div>
+
+    <div class="plans-grid">
+      <!-- Plan 1 -->
+      <div class="plan">
+        <div class="plan-tag">Single Platform</div>
+        <div class="plan-name">META ADS</div>
+        <div class="plan-price">$897<span>/mo</span></div>
+        <div class="plan-setup"><s>$250 setup</s> waived this week</div>
+        <ul class="plan-features">
+          <li>Meta account audit &amp; rebuild</li>
+          <li>Daily campaign management</li>
+          <li>Creative refreshes as needed</li>
+          <li>Weekly Slack reporting</li>
+          <li>Conversion tracking setup</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <a href="#" class="plan-cta">Get started →</a>
+      </div>
+
+      <!-- Plan 2 - Featured -->
+      <div class="plan featured">
+        <div class="plan-popular">★ Most popular</div>
+        <div class="plan-tag" style="opacity:.7">Meta + Google</div>
+        <div class="plan-name">FULL STACK</div>
+        <div class="plan-price">$1,597<span>/mo</span></div>
+        <div class="plan-setup"><s>$250 setup</s> waived this week</div>
+        <ul class="plan-features">
+          <li>Both platforms set up &amp; managed</li>
+          <li>Daily optimization across both</li>
+          <li>Creative refreshes as needed</li>
+          <li>Weekly reports + monthly strategy call</li>
+          <li>Priority Slack access</li>
+          <li>Conversion tracking setup</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <a href="#" class="plan-cta featured">Get started →</a>
+      </div>
+
+      <!-- Plan 3 -->
+      <div class="plan">
+        <div class="plan-tag">Single Platform</div>
+        <div class="plan-name">GOOGLE ADS</div>
+        <div class="plan-price">$897<span>/mo</span></div>
+        <div class="plan-setup"><s>$250 setup</s> waived this week</div>
+        <ul class="plan-features">
+          <li>Google account audit &amp; rebuild</li>
+          <li>Search + Performance Max</li>
+          <li>Daily campaign management</li>
+          <li>Creative refreshes as needed</li>
+          <li>Weekly Slack reporting</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <a href="#" class="plan-cta">Get started →</a>
+      </div>
+    </div>
+
+    <div class="plans-footer">
+      Want to add UGC, a landing page, or extra platform? <a href="#addons">See add-ons →</a><br>
+      Spending $10k+/mo on ads, or need something custom? <a href="#contact">Book a call instead.</a>
+    </div>
+  </div>
+</section>
+
+<!-- THE GUARANTEE -->
+<section class="promise grain">
+  <div class="promise-inner fade-in">
+    <div class="promise-eyebrow">— The 14-day promise</div>
+    <h3 class="promise-text">
+      First booked call by <em>day 14</em> — or month two is free.
+    </h3>
+    <p class="promise-detail">
+      Standard with every plan. No fine print.
+    </p>
+  </div>
+</section>
+
+<!-- ADD-ONS (small accessory shelf) -->
+<section class="addons" id="addons">
+  <div class="addons-header fade-in">
+    <div class="addons-header-left">
+      <div class="eyebrow">— Add-ons</div>
+      <h2>Optional <em>extras.</em></h2>
+      <p class="addons-sub">Pair any plan with these.</p>
+    </div>
+    <div class="addons-controls">
+      <button class="addons-arrow" id="addonsPrev" aria-label="Previous">←</button>
+      <button class="addons-arrow" id="addonsNext" aria-label="Next">→</button>
+    </div>
+  </div>
+
+  <div class="addons-track-wrap">
+    <div class="addons-track" id="addonsTrack">
+
+      <!-- 1. UGC -->
+      <div class="addon">
+        <div class="addon-visual">
+          <div class="addon-visual-grid"></div>
+          <svg class="addon-visual-icon" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="20" width="70" height="50" rx="3" fill="none" stroke="#14301f" stroke-width="1.5"/>
+            <rect x="32" y="14" width="26" height="10" rx="1" fill="none" stroke="#14301f" stroke-width="1.5"/>
+            <circle cx="45" cy="45" r="14" fill="none" stroke="#14301f" stroke-width="1.5"/>
+            <circle cx="45" cy="45" r="6" fill="#14301f"/>
+            <circle cx="68" cy="32" r="2" fill="#14301f"/>
+          </svg>
+        </div>
+        <div class="addon-body">
+          <div class="addon-tag">Content</div>
+          <div class="addon-name">UGC Creator<br>Package</div>
+          <div class="addon-desc">
+            Get connected with a vetted creator who films content for your ads — 4 short-form videos delivered each month.
+          </div>
+          <div class="addon-price-row">
+            <div class="addon-price">$497<small>/mo</small></div>
+            <a href="#" class="addon-cta">Add →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Landing page -->
+      <div class="addon">
+        <div class="addon-visual">
+          <div class="addon-visual-grid"></div>
+          <svg class="addon-visual-icon" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="14" width="74" height="62" rx="2" fill="none" stroke="#14301f" stroke-width="1.5"/>
+            <line x1="8" y1="24" x2="82" y2="24" stroke="#14301f" stroke-width="1.5"/>
+            <circle cx="14" cy="19" r="1.2" fill="#14301f"/>
+            <circle cx="19" cy="19" r="1.2" fill="#14301f"/>
+            <line x1="18" y1="38" x2="60" y2="38" stroke="#14301f" stroke-width="1.5"/>
+            <line x1="18" y1="46" x2="68" y2="46" stroke="#14301f" stroke-width=".7"/>
+            <line x1="18" y1="52" x2="60" y2="52" stroke="#14301f" stroke-width=".7"/>
+            <rect x="18" y="60" width="24" height="8" rx="4" fill="#14301f"/>
+          </svg>
+        </div>
+        <div class="addon-body">
+          <div class="addon-tag">Conversion</div>
+          <div class="addon-name">Service<br>Landing Page</div>
+          <div class="addon-desc">
+            A custom landing page built for one specific service. Converts ad traffic 2–3× better than sending visitors to your homepage.
+          </div>
+          <div class="addon-price-row">
+            <div class="addon-price">$997<small>one-time</small></div>
+            <a href="#" class="addon-cta">Add →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Performance audit -->
+      <div class="addon">
+        <div class="addon-visual">
+          <div class="addon-visual-grid"></div>
+          <svg class="addon-visual-icon" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="45" cy="45" r="38" fill="none" stroke="#14301f" stroke-width="1"/>
+            <circle cx="45" cy="45" r="26" fill="none" stroke="#14301f" stroke-width="1"/>
+            <circle cx="45" cy="45" r="14" fill="none" stroke="#14301f" stroke-width="1.5"/>
+            <circle cx="45" cy="45" r="3" fill="#14301f"/>
+            <line x1="45" y1="2" x2="45" y2="10" stroke="#14301f" stroke-width="1"/>
+            <line x1="45" y1="80" x2="45" y2="88" stroke="#14301f" stroke-width="1"/>
+            <line x1="2" y1="45" x2="10" y2="45" stroke="#14301f" stroke-width="1"/>
+            <line x1="80" y1="45" x2="88" y2="45" stroke="#14301f" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="addon-body">
+          <div class="addon-tag">Diagnostic</div>
+          <div class="addon-name">Performance<br>Audit</div>
+          <div class="addon-desc">
+            A deep look at your current Meta and Google ads. You'll see what's working, what's wasting money, and what to change first.
+          </div>
+          <div class="addon-price-row">
+            <div class="addon-price">$297<small>one-time</small></div>
+            <a href="#" class="addon-cta">Add →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Extra platform -->
+      <div class="addon">
+        <div class="addon-visual">
+          <div class="addon-visual-grid"></div>
+          <svg class="addon-visual-icon" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30" cy="30" r="16" fill="none" stroke="#14301f" stroke-width="1.5"/>
+            <circle cx="60" cy="30" r="16" fill="none" stroke="#14301f" stroke-width="1.5"/>
+            <circle cx="45" cy="60" r="16" fill="none" stroke="#14301f" stroke-width="1.5"/>
+            <circle cx="30" cy="30" r="3" fill="#14301f"/>
+            <circle cx="60" cy="30" r="3" fill="#14301f"/>
+            <circle cx="45" cy="60" r="3" fill="#14301f"/>
+          </svg>
+        </div>
+        <div class="addon-body">
+          <div class="addon-tag">Reach</div>
+          <div class="addon-name">Extra<br>Platform</div>
+          <div class="addon-desc">
+            Add TikTok or Pinterest ads on top of your current plan. Same daily management, same level of attention — wider reach.
+          </div>
+          <div class="addon-price-row">
+            <div class="addon-price">$497<small>/mo</small></div>
+            <a href="#" class="addon-cta">Add →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="addons-footer">
+    Not sure what you need? <a href="#contact">Book a call</a> and you'll get a clear recommendation.
+  </div>
+</section>
+
+
+<!-- READY CHECKLIST (final qualifier before CTA) -->
+<section class="ready">
+  <div class="ready-inner fade-in">
+    <div class="ready-header">
+      <div class="ready-eyebrow">— Quick gut-check</div>
+      <h2 class="ready-title">Six things to<br>have <em>ready.</em></h2>
+      <p class="ready-sub">Tap each item you already have in place. The rest? You'll know what to fix before spending a dollar.</p>
+      <p class="ready-instruction">Tap to check what's already done →</p>
+    </div>
+    <div class="ready-list" id="readyList">
+        <div class="ready-row" data-help="addon">
+          <div class="ready-check">
+            <svg viewBox="0 0 14 14"><polyline points="2.5,7.5 5.5,10.5 11.5,3.5"/></svg>
+          </div>
+          <div class="ready-row-text">A landing page that converts</div>
+          <a href="#addons" class="ready-row-help">Get this built →</a>
+        </div>
+        <div class="ready-row" data-help="diy">
+          <div class="ready-check">
+            <svg viewBox="0 0 14 14"><polyline points="2.5,7.5 5.5,10.5 11.5,3.5"/></svg>
+          </div>
+          <div class="ready-row-text">A reliable booking system</div>
+          <span class="ready-row-help muted">You handle</span>
+        </div>
+        <div class="ready-row" data-help="plan">
+          <div class="ready-check">
+            <svg viewBox="0 0 14 14"><polyline points="2.5,7.5 5.5,10.5 11.5,3.5"/></svg>
+          </div>
+          <div class="ready-row-text">Conversion tracking set up</div>
+          <a href="#plans" class="ready-row-help">Set this up →</a>
+        </div>
+        <div class="ready-row" data-help="addon">
+          <div class="ready-check">
+            <svg viewBox="0 0 14 14"><polyline points="2.5,7.5 5.5,10.5 11.5,3.5"/></svg>
+          </div>
+          <div class="ready-row-text">Photos &amp; video content</div>
+          <a href="#addons" class="ready-row-help">UGC add-on →</a>
+        </div>
+        <div class="ready-row" data-help="contact">
+          <div class="ready-check">
+            <svg viewBox="0 0 14 14"><polyline points="2.5,7.5 5.5,10.5 11.5,3.5"/></svg>
+          </div>
+          <div class="ready-row-text">A clear, compelling offer</div>
+          <a href="#contact" class="ready-row-help">Refine this →</a>
+        </div>
+        <div class="ready-row" data-help="diy">
+          <div class="ready-check">
+            <svg viewBox="0 0 14 14"><polyline points="2.5,7.5 5.5,10.5 11.5,3.5"/></svg>
+          </div>
+          <div class="ready-row-text">Ad budget separate from fees</div>
+          <span class="ready-row-help muted">You handle</span>
+        </div>
+    </div>
+    <div class="ready-summary" id="readySummary">
+      <strong>0 of 6</strong> ready · The links above show what to fix first.
+    </div>
+  </div>
+</section>
+
+<!-- CTA — for buyers outside standard plans -->
+<section class="cta" id="contact">
+  <div class="cta-inner fade-in">
+    <div class="eyebrow" style="color:rgba(241,236,223,.55); margin-bottom: 18px;">— Outside the box</div>
+    <h2>Don't see your <em>fit?</em></h2>
+    <p style="margin-top:24px; max-width:560px; font-size:15px; line-height:1.6; opacity:.7; font-weight:400;">
+      Spending $10k+/mo on ads, running multi-location, or need something the plans don't cover? Reply directly. You'll get a real audit, real pricing, and a real answer — usually within 24 hours.
+    </p>
+    <div class="cta-row">
+      <a href="mailto:hello@marad.studio" class="pill cream">Email Mya directly →</a>
+      <a href="/faq" class="pill" style="background:transparent; color:var(--cream); border:1.5px solid rgba(241,236,223,.4)">Read the FAQ</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bio">
+      <strong>Mya · Founder.</strong> Trained in environments where every dollar gets a meeting. Now running ads for service businesses. <span style="opacity:.6;">Metro Detroit</span>
+    </div>
+    <div class="footer-meta">
+      <div class="footer-meta-row">
+        <a href="#plans">Plans</a>
+        <a href="#addons">Add-ons</a>
+        <a href="/medspas">Med spas</a>
+        <a href="/faq">FAQ</a>
+      </div>
+      <div class="footer-meta-row">
+        <a href="mailto:hello@marad.studio">hello@marad.studio</a>
+      </div>
+      <div class="footer-meta-row" style="opacity:.7; margin-top:8px;">
+        Metro Detroit · Working remote with clients across the US.
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 MARAD Studio</div>
+    <div>Meta &amp; Google Ads · Service businesses only</div>
+  </div>
+</footer>
+
+<script>
+  // Scroll progress indicator
+  (function() {
+    const indicator = document.getElementById('scrollIndicator');
+    const fill = document.getElementById('scrollIndicatorFill');
+    let timeout;
+
+    function updateScroll() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = (scrollTop / docHeight) * 100;
+      fill.style.height = pct + '%';
+
+      indicator.classList.add('visible');
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        indicator.classList.remove('visible');
+      }, 800);
+    }
+
+    window.addEventListener('scroll', updateScroll, { passive: true });
+  })();
+
+  // Add-ons horizontal carousel
+  (function() {
+    const track = document.getElementById('addonsTrack');
+    const prevBtn = document.getElementById('addonsPrev');
+    const nextBtn = document.getElementById('addonsNext');
+    if (!track || !prevBtn || !nextBtn) return;
+
+    let position = 0;
+    const cardWidth = 220 + 10; // card width + gap
+
+    function updateButtons() {
+      const wrap = track.parentElement;
+      const maxScroll = track.scrollWidth - wrap.clientWidth;
+      prevBtn.disabled = position <= 0;
+      nextBtn.disabled = position >= maxScroll - 5;
+    }
+
+    function scroll(direction) {
+      const wrap = track.parentElement;
+      const maxScroll = track.scrollWidth - wrap.clientWidth;
+      position += direction * cardWidth;
+      position = Math.max(0, Math.min(maxScroll, position));
+      track.style.transform = `translateX(-${position}px)`;
+      updateButtons();
+    }
+
+    prevBtn.addEventListener('click', () => scroll(-1));
+    nextBtn.addEventListener('click', () => scroll(1));
+
+    // Touch swipe support for mobile
+    let touchStart = 0;
+    track.addEventListener('touchstart', e => {
+      touchStart = e.touches[0].clientX;
+    }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const touchEnd = e.changedTouches[0].clientX;
+      const diff = touchStart - touchEnd;
+      if (Math.abs(diff) > 50) scroll(diff > 0 ? 1 : -1);
+    }, { passive: true });
+
+    updateButtons();
+    window.addEventListener('resize', updateButtons);
+  })();
+
+  // Scroll fade-in animations (Apple-style)
+  (function() {
+    if (!('IntersectionObserver' in window)) {
+      // Fallback: just show everything
+      document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  })();
+
+  // Ready Checklist — interactive toggles
+  (function() {
+    const list = document.getElementById('readyList');
+    const summary = document.getElementById('readySummary');
+    if (!list || !summary) return;
+
+    const rows = list.querySelectorAll('.ready-row');
+    const total = rows.length;
+
+    function updateSummary() {
+      const checked = list.querySelectorAll('.ready-row.checked').length;
+      const remaining = total - checked;
+      if (checked === total) {
+        summary.innerHTML = `<strong>${total} of ${total}</strong> ready · You're set. <a href="#plans" style="color:var(--green);font-weight:600;text-decoration:underline;text-underline-offset:4px;">See plans →</a>`;
+      } else if (checked === 0) {
+        summary.innerHTML = `<strong>${checked} of ${total}</strong> ready · The links above show what to fix first.`;
+      } else {
+        summary.innerHTML = `<strong>${checked} of ${total}</strong> ready · ${remaining} thing${remaining === 1 ? '' : 's'} left to sort out.`;
+      }
+    }
+
+    rows.forEach(row => {
+      row.addEventListener('click', (e) => {
+        // Don't toggle if user clicked the help link itself
+        if (e.target.closest('.ready-row-help') && e.target.tagName === 'A') return;
+        row.classList.toggle('checked');
+        updateSummary();
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
