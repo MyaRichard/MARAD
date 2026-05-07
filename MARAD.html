@@ -35,6 +35,13 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 20px 32px; background: rgba(241,236,223,.85); backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(20,48,31,.06);
+    transition: padding .3s cubic-bezier(.4,0,.2,1), background .3s cubic-bezier(.4,0,.2,1), box-shadow .3s cubic-bezier(.4,0,.2,1), border-color .3s cubic-bezier(.4,0,.2,1);
+  }
+  nav.scrolled {
+    padding: 14px 32px;
+    background: rgba(241,236,223,.95);
+    border-bottom-color: rgba(20,48,31,.12);
+    box-shadow: 0 1px 12px rgba(20,48,31,.06);
   }
   .logo { font-family: 'Anton', sans-serif; font-size: 20px; letter-spacing: .04em; color: var(--green); }
   .nav-place {
@@ -183,6 +190,14 @@
     line-height: .95; letter-spacing: -.02em; margin-top: 14px; max-width: 900px; text-transform: uppercase;
   }
   .services h2 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--cream); text-transform: lowercase; opacity: .85; }
+  .services-sub {
+    margin-top: 18px;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic; font-weight: 400;
+    font-size: clamp(18px, 1.6vw, 22px);
+    color: var(--cream); opacity: .55;
+    letter-spacing: -.005em;
+  }
   .svc-grid {
     margin-top: 48px; display: grid; gap: 14px;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -416,9 +431,52 @@
     font-weight: 500;
   }
 
+  /* Dashboard mobile cards (hidden by default, shown on mobile) */
+  .dashboard-cards { display: none; }
+  .dashboard-card {
+    border-bottom: 1px solid #e8e8e8;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .dashboard-card:last-child {
+    background: #f0f7f3;
+    border-bottom: none;
+  }
+  .dashboard-card-name {
+    display: block;
+  }
+  .dashboard-card-name .dashboard-redacted {
+    font-size: 13px;
+  }
+  .dashboard-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
+  }
+  .dashboard-card-stat {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .dashboard-card-stat-lbl {
+    font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
+    color: #6b7676; font-weight: 600;
+  }
+  .dashboard-card-stat-val {
+    font-size: 14px; font-weight: 600; color: #1a1a1a;
+    font-variant-numeric: tabular-nums;
+  }
+  .dashboard-card.total .dashboard-card-stat-val { color: #14301f; }
+  .dashboard-card-total-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 14px; letter-spacing: .04em;
+    color: #14301f; text-transform: uppercase;
+  }
+
   @media (max-width: 760px) {
-    .dashboard-proof { font-size: 10px; }
-    .dashboard-table th, .dashboard-table td { padding: 10px 8px; font-size: 10.5px; }
+    .dashboard-proof { font-size: 11px; }
+    .dashboard-table { display: none; }
+    .dashboard-cards { display: block; }
     .dashboard-chrome { padding: 10px 14px; font-size: 10px; }
     .dashboard-chrome-url { display: none; }
   }
@@ -460,8 +518,8 @@
   }
 
   .plans-niche {
-    margin-top: 28px;
-    padding-top: 20px;
+    margin-top: 36px;
+    padding-top: 28px;
     border-top: 1px solid rgba(20,48,31,.12);
     max-width: 360px;
     margin-left: auto;
@@ -481,7 +539,7 @@
   .plans-niche a:hover { opacity: .65; }
 
   .plans-grid {
-    margin-top: 0; display: grid; gap: 14px;
+    margin-top: 24px; display: grid; gap: 20px;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     align-items: stretch;
   }
@@ -496,19 +554,26 @@
     box-shadow: 0 1px 1px rgba(20,48,31,.03), 0 12px 32px -16px rgba(20,48,31,.1);
   }
   .plan.featured {
-    background: rgba(20, 48, 31, .9);
+    background: rgba(20, 48, 31, .92);
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
-    border-color: rgba(241,236,223,.15);
+    border-color: rgba(244,208,60,.35);
     color: var(--cream);
-    transform: translateY(-10px);
-    box-shadow: 0 24px 44px -22px rgba(20,48,31,.45);
+    transform: translateY(-16px) scale(1.03);
+    box-shadow:
+      0 0 0 1px rgba(244,208,60,.18),
+      0 28px 50px -22px rgba(20,48,31,.55),
+      0 0 60px -20px rgba(244,208,60,.25);
+    z-index: 2;
   }
   .plan-popular {
-    position: absolute; top: -12px; left: 24px;
+    position: absolute; top: -14px; left: 50%;
+    transform: translateX(-50%);
     background: var(--yellow); color: var(--green);
-    padding: 5px 12px; border-radius: 999px;
-    font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 999px;
+    font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+    box-shadow: 0 8px 20px -8px rgba(244,208,60,.6);
+    white-space: nowrap;
   }
   .plan-tag {
     font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
@@ -562,7 +627,8 @@
   .plans-footer a { color: var(--green); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
 
   @media (max-width: 760px) {
-    .plan.featured { transform: none; }
+    .plan.featured { transform: translateY(-8px) scale(1); }
+    .plan-popular { font-size: 9.5px; padding: 5px 12px; }
   }
 
   /* ===== TESTIMONIAL ===== */
@@ -633,6 +699,19 @@
     padding: 0 40px;
     margin: 0 auto;
     max-width: 1400px;
+    position: relative;
+  }
+  .addons-track-wrap::after {
+    content: "";
+    position: absolute;
+    top: 0; right: 40px; bottom: 0;
+    width: 56px;
+    background: linear-gradient(to right, transparent, var(--cream) 80%);
+    pointer-events: none;
+    z-index: 2;
+  }
+  @media (max-width: 720px) {
+    .addons-track-wrap::after { right: 20px; width: 40px; }
   }
   .addons-track {
     display: flex; gap: 10px;
@@ -719,11 +798,29 @@
   @media (max-width: 720px) {
     .addons { padding: 32px 0 40px; }
     .addons-header { padding: 0 20px; margin-bottom: 20px; }
-    .addons-track-wrap { padding: 0 20px; }
     .addons-controls { display: none; }
-    .addon { width: 200px; }
+    .addons-track-wrap {
+      padding: 0 20px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scroll-padding-left: 20px;
+      scrollbar-width: none;
+    }
+    .addons-track-wrap::-webkit-scrollbar { display: none; }
+    .addons-track-wrap::after { right: 20px; width: 40px; }
+    .addons-track {
+      transform: none !important;
+      gap: 12px;
+    }
+    .addon {
+      width: 76vw;
+      max-width: 280px;
+      scroll-snap-align: start;
+    }
     .addon-visual-icon { width: 38px; height: 38px; }
-    .addon-name { font-size: 14px; }
+    .addon-name { font-size: 15px; }
     .addons-footer { padding: 0 20px; margin-top: 18px; }
   }
 
@@ -850,13 +947,21 @@
   .ready-list { display: flex; flex-direction: column; }
   .ready-row {
     display: flex; align-items: center; gap: 18px;
-    padding: 18px 0;
+    padding: 18px 12px;
+    margin: 0 -12px;
     border-bottom: 1px solid rgba(20,48,31,.1);
     cursor: pointer;
-    transition: opacity .25s ease;
+    border-radius: 8px;
+    transition: background-color .25s ease, opacity .25s ease;
   }
   .ready-row:first-child { border-top: 1px solid rgba(20,48,31,.1); }
-  .ready-row:hover { opacity: .7; }
+  .ready-row:hover {
+    background-color: rgba(20,48,31,.04);
+  }
+  .ready-row:hover .ready-check {
+    border-color: rgba(20,48,31,.5);
+    background: rgba(20,48,31,.04);
+  }
   .ready-check {
     width: 22px; height: 22px; flex-shrink: 0;
     border-radius: 50%;
@@ -893,16 +998,50 @@
   .ready-row-help.muted { opacity: .4; text-decoration: none; }
 
   .ready-summary {
-    margin-top: 32px; text-align: center;
+    text-align: center;
     font-size: 13px; color: var(--green); opacity: .7;
     font-family: 'Instrument Serif', serif;
     font-style: italic;
+    transition: opacity .4s ease, transform .4s cubic-bezier(.4,0,.2,1);
   }
   .ready-summary strong {
     font-family: 'Manrope', sans-serif;
     font-style: normal; font-weight: 600;
     color: var(--green); opacity: 1;
   }
+
+  /* Complete celebration state (6/6) */
+  .ready-summary.complete {
+    opacity: 1;
+    padding: 18px 24px;
+    background: rgba(244,208,60,.12);
+    border: 1px solid rgba(244,208,60,.4);
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transform: scale(1.02);
+    animation: readyComplete .6s cubic-bezier(.4,0,.2,1);
+  }
+  .ready-summary.complete strong { color: var(--green); }
+  .ready-summary-cta {
+    font-family: 'Manrope', sans-serif;
+    font-style: normal;
+    color: var(--green);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    margin-left: 4px;
+    transition: opacity .2s ease;
+  }
+  .ready-summary-cta:hover { opacity: .65; }
+  @keyframes readyComplete {
+    0% { transform: scale(.96); opacity: 0; }
+    60% { transform: scale(1.05); }
+    100% { transform: scale(1.02); opacity: 1; }
+  }
+  /* Wrapping container so the inline-flex works centered */
+  .ready-summary-wrap { text-align: center; margin-top: 32px; }
 
   @media (max-width: 760px) {
     .ready { padding: 56px 20px; }
@@ -1069,16 +1208,16 @@
     .grain::before { display: none; }
 
     /* HERO */
-    .hero { padding: 48px 20px 40px; }
+    .hero { padding: 36px 20px 48px; }
     .hero h1 {
-      font-size: 48px;
+      font-size: 44px;
       line-height: .98;
       letter-spacing: -.01em;
     }
     .hero h1 .bolt { width: .8em; height: .8em; }
-    .hero-sub { font-size: 15px; margin-top: 22px; line-height: 1.5; }
+    .hero-sub { font-size: 15px; margin-top: 20px; line-height: 1.5; }
     .hero-cta {
-      margin-top: 26px;
+      margin-top: 22px;
       flex-direction: column;
       align-items: stretch;
       gap: 10px;
@@ -1089,6 +1228,7 @@
       padding: 14px 20px;
       font-size: 14px;
     }
+    .hero-meta { margin-top: 16px; font-size: 11px; }
 
     /* shared section padding */
     .services, .plans, .track, .ready { padding: 56px 20px; }
@@ -1211,42 +1351,9 @@
     .fade-in { opacity: 1; transform: none; transition: none; }
   }
 
-  /* ===== SCROLL PROGRESS INDICATOR ===== */
-  .scroll-indicator {
-    position: fixed;
-    top: 50%;
-    right: 18px;
-    transform: translateY(-50%);
-    width: 2px;
-    height: 200px;
-    background: rgba(20,48,31,.08);
-    border-radius: 999px;
-    z-index: 100;
-    opacity: 0;
-    transition: opacity .4s ease;
-    pointer-events: none;
-  }
-  .scroll-indicator.visible { opacity: 1; }
-  .scroll-indicator-fill {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 0%;
-    background: var(--green);
-    border-radius: 999px;
-    transition: height .1s ease-out;
-  }
-  @media (max-width: 720px) {
-    .scroll-indicator { right: 10px; height: 140px; }
-  }
 </style>
 </head>
 <body>
-
-<!-- SCROLL INDICATOR -->
-<div class="scroll-indicator" id="scrollIndicator">
-  <div class="scroll-indicator-fill" id="scrollIndicatorFill"></div>
-</div>
 
 <!-- NAV -->
 <nav>
@@ -1266,19 +1373,19 @@
 <!-- HERO -->
 <section class="hero grain">
   <h1>
-    Most ads<br>
-    don't work.<br>
-    Yours <em>
+    The ad partner<br>
+    you've been<br>
+    looking <em>
       <!-- inline lightning bolt -->
       <svg class="bolt" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M14 2 L4 14 L11 14 L9 22 L20 9 L13 9 Z" fill="#f4d03c" stroke="#14301f" stroke-width="1.4" stroke-linejoin="round"/>
       </svg>
-      can.
+      for.
     </em>
   </h1>
 
   <p class="hero-sub">
-    Meta and Google ads, run daily by senior strategists — for service businesses that have been burned before. Cancel anytime.
+    Daily-managed Meta and Google ads, run by senior strategists.
   </p>
 
   <div class="hero-cta">
@@ -1379,9 +1486,55 @@
           </tr>
         </tbody>
       </table>
-    </div>
-    <div class="dashboard-caption">
-      Real account. Live for 12 months. Names removed for privacy.
+
+      <!-- Mobile: stacked cards (replaces table on small screens) -->
+      <div class="dashboard-cards">
+        <div class="dashboard-card">
+          <div class="dashboard-card-name"><span class="dashboard-redacted">Campaign 01</span></div>
+          <div class="dashboard-card-grid">
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">Conv. Value</span><span class="dashboard-card-stat-val">$394,570.23</span></div>
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">ROAS</span><span class="dashboard-card-stat-val">8.36×</span></div>
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">Cost / Conv.</span><span class="dashboard-card-stat-val">$13.53</span></div>
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">Clicks</span><span class="dashboard-card-stat-val">31,272</span></div>
+          </div>
+        </div>
+        <div class="dashboard-card">
+          <div class="dashboard-card-name"><span class="dashboard-redacted">Campaign 02</span></div>
+          <div class="dashboard-card-grid">
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">Conv. Value</span><span class="dashboard-card-stat-val">$388,293.82</span></div>
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">ROAS</span><span class="dashboard-card-stat-val">7.49×</span></div>
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">Cost / Conv.</span><span class="dashboard-card-stat-val">$18.45</span></div>
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">Clicks</span><span class="dashboard-card-stat-val">28,514</span></div>
+          </div>
+        </div>
+        <div class="dashboard-card">
+          <div class="dashboard-card-name"><span class="dashboard-redacted">Campaign 03</span></div>
+          <div class="dashboard-card-grid">
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">Conv. Value</span><span class="dashboard-card-stat-val">$25,965.03</span></div>
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">ROAS</span><span class="dashboard-card-stat-val">9.60×</span></div>
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">Cost / Conv.</span><span class="dashboard-card-stat-val">$14.80</span></div>
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">Clicks</span><span class="dashboard-card-stat-val">1,487</span></div>
+          </div>
+        </div>
+        <div class="dashboard-card">
+          <div class="dashboard-card-name"><span class="dashboard-redacted">Campaign 04</span></div>
+          <div class="dashboard-card-grid">
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">Conv. Value</span><span class="dashboard-card-stat-val">$40,922.56</span></div>
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">ROAS</span><span class="dashboard-card-stat-val">13.42×</span></div>
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">Cost / Conv.</span><span class="dashboard-card-stat-val">$10.58</span></div>
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">Clicks</span><span class="dashboard-card-stat-val">2,184</span></div>
+          </div>
+        </div>
+        <div class="dashboard-card total">
+          <div class="dashboard-card-name"><span class="dashboard-card-total-name">TOTAL</span></div>
+          <div class="dashboard-card-grid">
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">Conv. Value</span><span class="dashboard-card-stat-val">$849,751.64</span></div>
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">ROAS</span><span class="dashboard-card-stat-val">8.11×</span></div>
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">Cost / Conv.</span><span class="dashboard-card-stat-val">$15.48</span></div>
+            <div class="dashboard-card-stat"><span class="dashboard-card-stat-lbl">Clicks</span><span class="dashboard-card-stat-val">63,457</span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1408,6 +1561,7 @@
   <div class="fade-in">
     <div class="eyebrow">/ The offer</div>
     <h2>One service.<br>Done <em>obsessively.</em></h2>
+    <p class="services-sub">How it works, in four parts.</p>
   </div>
 
   <div class="svc-grid fade-in delay-2">
@@ -1427,7 +1581,7 @@
       <div class="arrow">→</div>
       <div class="svc-num">02 / CREATIVE DIRECTION</div>
       <div class="svc-title">Ads That<br>Convert</div>
-      <div class="svc-desc">Concepts, scripts, hooks, and creative briefs — built around what's actually performing. Vetted UGC creators and designers handle production. Fresh creative as needed, directed end-to-end. No stock, no slop.</div>
+      <div class="svc-desc">Concepts, scripts, hooks, and creative briefs — built around what's actually performing. Vetted UGC creators and designers handle production. Fresh creative as needed, directed end-to-end.</div>
       <div class="svc-tags">
         <span>Meta + Google</span><span>UGC scripting</span><span>Hooks &amp; angles</span>
       </div>
@@ -1547,7 +1701,7 @@
       First booked call by <em>day 14</em> — or month two is free.
     </h3>
     <p class="promise-detail">
-      Standard with every plan. No fine print.
+      Standard with every plan.
     </p>
   </div>
 </section>
@@ -1738,8 +1892,10 @@
           <span class="ready-row-help muted">You handle</span>
         </div>
     </div>
-    <div class="ready-summary" id="readySummary">
-      <strong>0 of 6</strong> ready · The links above show what to fix first.
+    <div class="ready-summary-wrap">
+      <div class="ready-summary" id="readySummary">
+        <strong>0 of 6</strong> ready · The links above show what to fix first.
+      </div>
     </div>
   </div>
 </section>
@@ -1770,50 +1926,36 @@
         <a href="#addons">Add-ons</a>
         <a href="/medspas">Med spas</a>
         <a href="/faq">FAQ</a>
-      </div>
-      <div class="footer-meta-row">
-        <a href="mailto:hello@marad.studio">hello@marad.studio</a>
-      </div>
-      <div class="footer-meta-row" style="opacity:.7; margin-top:8px;">
-        Metro Detroit · Working remote with clients across the US.
+        <a href="mailto:hello@marad.studio">Email</a>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
-    <div>© 2026 MARAD Studio</div>
-    <div>Meta &amp; Google Ads · Service businesses only</div>
+    <div>© 2026 MARAD</div>
   </div>
 </footer>
 
 <script>
-  // Scroll progress indicator
+  // Nav scrolled state (subtle border + shadow on scroll)
   (function() {
-    const indicator = document.getElementById('scrollIndicator');
-    const fill = document.getElementById('scrollIndicatorFill');
-    let timeout;
-
-    function updateScroll() {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = (scrollTop / docHeight) * 100;
-      fill.style.height = pct + '%';
-
-      indicator.classList.add('visible');
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        indicator.classList.remove('visible');
-      }, 800);
+    const nav = document.querySelector('nav');
+    if (!nav) return;
+    function handleScroll() {
+      if (window.scrollY > 32) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
     }
-
-    window.addEventListener('scroll', updateScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
   })();
 
-  // Add-ons horizontal carousel
+  // Add-ons horizontal carousel (desktop only — mobile uses native scroll)
   (function() {
     const track = document.getElementById('addonsTrack');
     const prevBtn = document.getElementById('addonsPrev');
     const nextBtn = document.getElementById('addonsNext');
     if (!track || !prevBtn || !nextBtn) return;
+
+    const isMobileQuery = window.matchMedia('(max-width: 720px)');
 
     let position = 0;
     const cardWidth = 220 + 10; // card width + gap
@@ -1837,16 +1979,26 @@
     prevBtn.addEventListener('click', () => scroll(-1));
     nextBtn.addEventListener('click', () => scroll(1));
 
-    // Touch swipe support for mobile
-    let touchStart = 0;
-    track.addEventListener('touchstart', e => {
-      touchStart = e.touches[0].clientX;
-    }, { passive: true });
-    track.addEventListener('touchend', e => {
-      const touchEnd = e.changedTouches[0].clientX;
-      const diff = touchStart - touchEnd;
-      if (Math.abs(diff) > 50) scroll(diff > 0 ? 1 : -1);
-    }, { passive: true });
+    // Touch swipe support — desktop touch screens only (mobile uses native scroll)
+    if (!isMobileQuery.matches) {
+      let touchStart = 0;
+      track.addEventListener('touchstart', e => {
+        touchStart = e.touches[0].clientX;
+      }, { passive: true });
+      track.addEventListener('touchend', e => {
+        const touchEnd = e.changedTouches[0].clientX;
+        const diff = touchStart - touchEnd;
+        if (Math.abs(diff) > 50) scroll(diff > 0 ? 1 : -1);
+      }, { passive: true });
+    }
+
+    // Reset transform when crossing into mobile viewport
+    isMobileQuery.addEventListener('change', (e) => {
+      if (e.matches) {
+        track.style.transform = '';
+        position = 0;
+      }
+    });
 
     updateButtons();
     window.addEventListener('resize', updateButtons);
@@ -1884,10 +2036,13 @@
       const checked = list.querySelectorAll('.ready-row.checked').length;
       const remaining = total - checked;
       if (checked === total) {
-        summary.innerHTML = `<strong>${total} of ${total}</strong> ready · You're set. <a href="#plans" style="color:var(--green);font-weight:600;text-decoration:underline;text-underline-offset:4px;">See plans →</a>`;
+        summary.classList.add('complete');
+        summary.innerHTML = `<strong>${total} of ${total}</strong> ready · You're set. <a href="#plans" class="ready-summary-cta">See plans →</a>`;
       } else if (checked === 0) {
+        summary.classList.remove('complete');
         summary.innerHTML = `<strong>${checked} of ${total}</strong> ready · The links above show what to fix first.`;
       } else {
+        summary.classList.remove('complete');
         summary.innerHTML = `<strong>${checked} of ${total}</strong> ready · ${remaining} thing${remaining === 1 ? '' : 's'} left to sort out.`;
       }
     }
